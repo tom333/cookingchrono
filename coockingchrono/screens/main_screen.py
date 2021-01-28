@@ -4,7 +4,6 @@ from kivymd.uix.screen import MDScreen
 
 
 class MainScreen(MDScreen):
-
     def start_count_down(self):
         duration = self._convert_text_to_duration(self.ids.duration.text)
         Logger.debug("duration : %s" % duration)

@@ -22,12 +22,11 @@ class CountDownLabel(MDLabel):
 
     def _play_sound(self):
         Logger.debug("play sound")
-        sound = SoundLoader.load('../assets/sound.mp3')
+        sound = SoundLoader.load("../assets/sound.mp3")
         if sound:
             print("Sound found at %s" % sound.source)
             print("Sound is %.3f seconds" % sound.length)
             sound.play()
-
 
     def _convert_duration_to_mask(self):
         Logger.debug("timer: %s " % self.duration)

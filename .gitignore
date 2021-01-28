@@ -1,0 +1,9 @@
+__pycache__
+.coverage
+junit_report.xml
+
+*.egg-info
+dist
+
+cov.xml
+htmlcov
