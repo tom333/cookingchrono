@@ -4,20 +4,14 @@ from kivymd.uix.textfield import MDTextField
 
 class TimeInput(MDTextField):
     """
-    widget from https://github.com/kivy/kivy/pull/6090/files
+    widget de saisie de durée
     """
-    raw_value = ""
-    mask = "##:##:##"
-    capital = False
 
     def insert_text(self, substring, from_undo=False):
         Logger.debug("insert_text: %s => %s (%s)" % (self.text, substring, len(self.text)))
         s = self._format_time(substring)
         self.text = ""
-        #if len(self.text) == 8:
         return super(TimeInput, self).insert_text(s, from_undo=from_undo)
-        # else:
-        #     return super(TimeInput, self).insert_text("", from_undo=from_undo)
 
     def _format_time(self, substring):
         txt = self.text
