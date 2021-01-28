@@ -19,7 +19,7 @@ class CookingChronoApp(MDApp):
         self.manager = AppScreenManager()
         self.manager.add_widget(MainScreen(name="MainScreen"))
         self.manager.add_widget(CountDownScreen(name="CountDownScreen"))
-        self.theme_cls.primary_palette = "BlueGray"
+        self.theme_cls.theme_style = "Dark"
         return self.manager
 
 
