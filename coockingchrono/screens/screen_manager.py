@@ -8,7 +8,7 @@ class AppScreenManager(ScreenManager):
     back_screen_name = None
 
     def switch_to(self, name, **kwargs):
-        Logger.debug("Asked to switch to %s " % name)
+        Logger.debug("Asked to switch to %s -> %s" % (name, str(kwargs)))
         self.current = name
 
     def display_settings(self):

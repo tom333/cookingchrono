@@ -1,11 +1,11 @@
 import logging
 
 from kivy import Logger
-from kivy.lang import Builder
 from kivy.properties import ObjectProperty
-from kivy.uix.widget import Widget
+
 from kivymd.app import MDApp
 
+from screens.count_down_screen import CountDownScreen
 from screens.main_screen import MainScreen
 from screens.screen_manager import AppScreenManager
 
@@ -18,10 +18,10 @@ class CookingChronoApp(MDApp):
     def build(self):
         self.manager = AppScreenManager()
         self.manager.add_widget(MainScreen(name="MainScreen"))
+        self.manager.add_widget(CountDownScreen(name="CountDownScreen"))
         self.theme_cls.primary_palette = "BlueGray"
         return self.manager
 
 
 if __name__ == "__main__":
     CookingChronoApp().run()
-    #MainScreen(name="MainScreen")

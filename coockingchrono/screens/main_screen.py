@@ -1,14 +1,21 @@
 from kivy import Logger
-from kivy.core.audio import SoundLoader
+from kivy.app import App
 from kivymd.uix.screen import MDScreen
 
 
 class MainScreen(MDScreen):
 
-    def play_sound(self):
-        Logger.debug("play sound")
-        sound = SoundLoader.load('../assets/sound.mp3')
-        if sound:
-            print("Sound found at %s" % sound.source)
-            print("Sound is %.3f seconds" % sound.length)
-            sound.play()
+    def start_count_down(self):
+        duration = self._convert_text_to_duration(self.ids.duration.text)
+        Logger.debug("duration : %s" % duration)
+        App.get_running_app().manager.switch_to("CountDownScreen")
+        App.get_running_app().manager.current_screen.ids.timerlabel.duration = duration
+
+    def _convert_text_to_duration(self, txt):
+        """
+        txt is format ##:##:##
+        :return: duration in second
+        """
+        h, m, s = txt.split(":")
+        Logger.debug("%s, %s, %s" % (h, m, s))
+        return int(h) * 60 * 60 + int(m) * 60 + int(s)
