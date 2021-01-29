@@ -1,6 +1,7 @@
 import datetime
 
 from kivy import Logger
+from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.properties import NumericProperty
@@ -12,7 +13,8 @@ class CountDownLabel(MDLabel):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.update, 1)
+        if App.get_running_app().manager.current == "CoundDownScreen":
+            Clock.schedule_interval(self.update, 1)
 
     def update(self, *args):
         self.duration -= 1
