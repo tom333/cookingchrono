@@ -7,6 +7,10 @@ class AppScreenManager(ScreenManager):
 
     back_screen_name = None
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        App.get_running_app().manager = self
+
     def switch_to(self, name, **kwargs):
         Logger.debug("Asked to switch to %s -> %s" % (name, str(kwargs)))
         self.current = name
