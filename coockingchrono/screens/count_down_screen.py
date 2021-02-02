@@ -16,7 +16,7 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y": .80}
         valign: 'middle'
         halign: 'center'
-    CountDownLabel:
+    MDLabel:
         id: timerlabel
         pos_hint: {"center_x": .5, "center_y": .5}
         valign: 'middle'
