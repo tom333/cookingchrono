@@ -57,3 +57,16 @@ build-devbox: # Construction de l'image de dev
 define execute_cmd
 	$(CONTAINER_RUNNER) run -i -v ${CURDIR}:/opt/cookingchrono cookingchrono-devbox $(1)
 endef
+
+build-buildozer: # Construction de l'image de dev
+	podman build -t cookingchrono-buildozer -f Dockerfile .
+
+deploy: build-buildozer
+	podman run -it \
+					--privileged \
+					--volume /dev/bus/usb:/dev/bus/usb \
+					--volume buildozer_home:/root/.buildozer \
+					--volume ~/.android:/root/.android \
+					--volume ${CURDIR}:/home/user/hostcwd \
+					--volume ./gradle.properties:/root/.gradle/gradle.properties \
+					cookingchrono-buildozer android debug deploy run logcat
