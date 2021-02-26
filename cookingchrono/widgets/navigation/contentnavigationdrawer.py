@@ -46,6 +46,13 @@ Builder.load_string("""
                     root.nav_drawer.set_state("close")
                     root.screen_manager.current = "OptionsScreen"
 
+            ItemDrawer:
+                icon: "food"
+                text: "Recettes"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "RecipesScreen"
+
 """)
 
 
