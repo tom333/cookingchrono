@@ -1,5 +1,9 @@
+from functools import partial
+
 from kivy import Logger
+from kivy.app import App
 from kivy.lang import Builder
+from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
 
 Builder.load_string("""
@@ -11,6 +15,9 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y": .80}
         valign: 'middle'
         halign: 'center'
+    MDList:
+        pos_hint: {"center_x": .5, "center_y": .50}
+        id: recipes_list
     TimeInput:
         id: duration
         text: "00:00:00"
@@ -42,3 +49,16 @@ class MainScreen(MDScreen):
         h, m, s = txt.split(":")
         Logger.debug("%s, %s, %s" % (h, m, s))
         return int(h) * 60 * 60 + int(m) * 60 + int(s)
+
+    def on_enter(self):
+        self.ids.recipes_list.clear_widgets()
+        for recipe in App.get_running_app().db.all():
+            Logger.debug(recipe)
+            self.ids.recipes_list.add_widget(TwoLineListItem(text=recipe['name'], secondary_text=recipe['time'],
+                                                             on_release=partial(self.set_time, recipe.doc_id)))
+
+    def set_time(self, id, item):
+        Logger.debug("edit_recipe : %s => %s (%s) " % (item, id, self.ids))
+        current_recipe = App.get_running_app().db.get(doc_id=id)
+        self.ids.nom.text = current_recipe['name']
+        self.ids.duration.text = current_recipe['time']
