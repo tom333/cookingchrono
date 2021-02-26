@@ -26,7 +26,7 @@ quality: build-devbox # Execution des outils de qualité
 
 
 run:
-	python3 ./coockingchrono/main.py
+	python3 ./cookingchrono/main.py
 
 
 clean: # Ménage des fichiers générés
