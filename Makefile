@@ -26,7 +26,7 @@ quality: build-devbox # Execution des outils de qualité
 
 
 run:
-	python3 ./coockingchrono/main.py
+	python3 ./cookingchrono/main.py
 
 
 clean: # Ménage des fichiers générés
@@ -69,3 +69,10 @@ deploy:
 					--volume ~/.android:/root/.android \
 					--volume ${CURDIR}:/home/user/hostcwd \
 					cookingchrono-buildozer android debug deploy run logcat
+
+
+export-env:
+	conda env export > environment.yml
+
+init-env:
+	conda env create -f environment.yml python=3.8
