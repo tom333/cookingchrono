@@ -69,3 +69,10 @@ deploy:
 					--volume ~/.android:/root/.android \
 					--volume ${CURDIR}:/home/user/hostcwd \
 					cookingchrono-buildozer android debug deploy run logcat
+
+
+export-env:
+	conda env export > environment.yml
+
+init-env:
+	conda env create -f environment.yml python=3.8
