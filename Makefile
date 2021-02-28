@@ -61,12 +61,11 @@ endef
 build-buildozer: # Construction de l'image de dev
 	podman build -t cookingchrono-buildozer -f Dockerfile .
 
-deploy: build-buildozer
+deploy:
 	podman run -it \
 					--privileged \
 					--volume /dev/bus/usb:/dev/bus/usb \
 					--volume buildozer_home:/root/.buildozer \
 					--volume ~/.android:/root/.android \
 					--volume ${CURDIR}:/home/user/hostcwd \
-					--volume ./gradle.properties:/root/.gradle/gradle.properties \
 					cookingchrono-buildozer android debug deploy run logcat
