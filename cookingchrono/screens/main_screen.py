@@ -2,6 +2,7 @@ from functools import partial
 
 from kivy import Logger
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
@@ -16,18 +17,18 @@ Builder.load_string("""
         valign: 'middle'
         halign: 'center'
     MDList:
-        pos_hint: {"center_x": .5, "center_y": .50}
+        pos_hint: {"center_x": .5, "center_y": .70}
         id: recipes_list
     TimeInput:
         id: duration
         text: "00:00:00"
         max_text_length: 8
-        pos_hint: {"center_x": .5, "center_y": .5}
+        pos_hint: {"center_x": .5, "center_y": .25}
         valign: 'middle'
         halign: 'center'
     MDIconButton:
         icon: "play-circle-outline"
-        pos_hint: {"center_x": .5, "center_y": .25}
+        pos_hint: {"center_x": .5, "center_y": .10}
         on_press: root.start_count_down()
 
 """)
@@ -51,6 +52,11 @@ class MainScreen(MDScreen):
         return int(h) * 60 * 60 + int(m) * 60 + int(s)
 
     def on_enter(self):
+        Logger.debug(self.ids)
+        Clock.schedule_once(self._show_recpies_list)
+
+    def _show_recpies_list(self, arg):
+        Logger.debug(self.ids)
         self.ids.recipes_list.clear_widgets()
         for recipe in App.get_running_app().db.all():
             Logger.debug(recipe)
@@ -60,5 +66,4 @@ class MainScreen(MDScreen):
     def set_time(self, id, item):
         Logger.debug("edit_recipe : %s => %s (%s) " % (item, id, self.ids))
         current_recipe = App.get_running_app().db.get(doc_id=id)
-        self.ids.nom.text = current_recipe['name']
         self.ids.duration.text = current_recipe['time']
