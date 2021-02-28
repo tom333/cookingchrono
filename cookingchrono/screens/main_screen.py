@@ -2,7 +2,10 @@ from functools import partial
 
 from kivy import Logger
 from kivy.app import App
+<<<<<<< HEAD
 from kivy.clock import Clock
+=======
+>>>>>>> 29cb6c018935ef567c823b5703c726542696a701
 from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
@@ -17,7 +20,11 @@ Builder.load_string("""
         valign: 'middle'
         halign: 'center'
     MDList:
+<<<<<<< HEAD
         pos_hint: {"center_x": .5, "center_y": .70}
+=======
+        pos_hint: {"center_x": .5, "center_y": .50}
+>>>>>>> 29cb6c018935ef567c823b5703c726542696a701
         id: recipes_list
     TimeInput:
         id: duration
@@ -66,4 +73,5 @@ class MainScreen(MDScreen):
     def set_time(self, id, item):
         Logger.debug("edit_recipe : %s => %s (%s) " % (item, id, self.ids))
         current_recipe = App.get_running_app().db.get(doc_id=id)
+
         self.ids.duration.text = current_recipe['time']
