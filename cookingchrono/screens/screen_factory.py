@@ -1,6 +1,7 @@
 from typing import Callable
 
 from kivy import Logger
+from kivy.app import App
 from kivymd.uix.screen import MDScreen
 
 
@@ -18,6 +19,7 @@ class ScreenFactory:
         Returns:
             The Screen class itself.
         """
+        Logger.debug("register %s "% name)
 
         def inner_wrapper(wrapped_class: MDScreen) -> Callable:
             if name in cls.registry:
@@ -44,7 +46,7 @@ class ScreenFactory:
             screen_class = cls.registry[name]
             screen = screen_class(**kwargs)
             Logger.debug(screen)
-
+            App.get_running_app().screen_manager.add_widget(screen())
         return
 
     # end create_executor()

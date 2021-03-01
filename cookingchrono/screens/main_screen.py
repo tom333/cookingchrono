@@ -7,7 +7,7 @@ from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
 
-from cookingchrono.screens.screen_factory import ScreenFactory
+from screens.screen_factory import ScreenFactory
 
 Builder.load_string(
     """

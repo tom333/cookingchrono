@@ -4,7 +4,6 @@
 #:import AppScreenManager screens.screen_manager
 
 #:import CountDownScreen screens.count_down_screen
-#:import MainScreen screens.main_screen
 #:import OptionsScreen screens.options_screen
 #:import RecipesScreen screens.recipes_screen
 #:import AppScreenManager screens.screen_manager
@@ -20,8 +19,7 @@ Screen:
         x: toolbar.height
         AppScreenManager:
             id: screen_manager
-            MainScreen:
-                id: main_screen
+
             OptionsScreen:
                 id: options_screen
             CountDownScreen:
