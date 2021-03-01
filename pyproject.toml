@@ -11,6 +11,8 @@ kivymd = "^0.104.1"
 ffpyplayer = "^4.3.2"
 tinydb = "^4.4.0"
 pylint = "^2.7.2"
+pytest = "^6.2.2"
+coverage = "^5.5"
 
 [tool.poetry.dev-dependencies]
 buildozer = "^1.2.0"

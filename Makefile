@@ -56,7 +56,7 @@ build-devbox: # Construction de l'image de dev
 	$(CONTAINER_RUNNER) build -t cookingchrono-devbox -f Dockerfile.dev .
 
 define execute_cmd
-	$(CONTAINER_RUNNER) run -i -v ${CURDIR}:/opt/cookingchrono cookingchrono-devbox $(1)
+	$(CONTAINER_RUNNER) run -i -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp.X11-unix -v ${CURDIR}:/opt/cookingchrono cookingchrono-devbox $(1)
 endef
 
 build-buildozer: # Construction de l'image de dev
@@ -77,3 +77,16 @@ export-env:
 
 init-env:
 	conda env create -f environment.yml python=3.8
+
+# If the first argument is "tests"...
+ifeq (tests,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "tests"
+  TESTS_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(TESTS_ARGS):dummy;@:)
+endif
+
+
+tests: build-devbox # Execution des tests : si un fichier est passé en paramètre, seuls les tests de ce fichier seront executés
+	$(call execute_cmd) run pytest -c pyproject.toml -s --log-cli-level=10 -o junit_family=xunit2 --junitxml=./junit_report.xml --cov-report xml:cov.xml --cov-report html --cov=${SOURCEDIR} --color=yes $(TESTS_ARGS)
+

@@ -12,5 +12,7 @@ COPY pyproject.toml .
 
 RUN poetry install --no-root -vvv
 
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install --yes libmtdev1 libgl1-mesa-glx
+RUN DEBIAN_FRONTEND=noninteractive apt install --yes libxrender1
 
 ENTRYPOINT ["poetry"]
