@@ -2,10 +2,11 @@ from kivy.lang import Builder
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.list import MDList
 
-
-Builder.load_string("""
+Builder.load_string(
+    """
 <DrawerList>
-""")
+"""
+)
 
 
 class DrawerList(ThemableBehavior, MDList):
@@ -18,5 +19,3 @@ class DrawerList(ThemableBehavior, MDList):
                 item.text_color = self.theme_cls.text_color
                 break
         instance_item.text_color = self.theme_cls.primary_color
-
-

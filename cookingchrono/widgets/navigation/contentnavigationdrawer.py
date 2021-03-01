@@ -2,7 +2,8 @@ from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 
-Builder.load_string("""
+Builder.load_string(
+    """
 #:import DrawerList widgets.navigation.drawerlist
 #:import ItemDrawer widgets.navigation.itemdrawer
 
@@ -53,7 +54,8 @@ Builder.load_string("""
                     root.nav_drawer.set_state("close")
                     root.screen_manager.current = "RecipesScreen"
 
-""")
+"""
+)
 
 
 class ContentNavigationDrawer(BoxLayout):

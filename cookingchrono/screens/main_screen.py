@@ -7,7 +7,10 @@ from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
 
-Builder.load_string("""
+from cookingchrono.screens.screen_factory import ScreenFactory
+
+Builder.load_string(
+    """
 <MainScreen>
     name: "MainScreen"
     orientation: 'vertical'
@@ -31,9 +34,11 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y": .10}
         on_press: root.start_count_down()
 
-""")
+"""
+)
 
 
+@ScreenFactory.register('MainScreen')
 class MainScreen(MDScreen):
     def start_count_down(self):
         duration = self._convert_text_to_duration(self.ids.duration.text)
@@ -60,11 +65,10 @@ class MainScreen(MDScreen):
         self.ids.recipes_list.clear_widgets()
         for recipe in App.get_running_app().db.all():
             Logger.debug(recipe)
-            self.ids.recipes_list.add_widget(TwoLineListItem(text=recipe['name'], secondary_text=recipe['time'],
-                                                             on_release=partial(self.set_time, recipe.doc_id)))
+            self.ids.recipes_list.add_widget(TwoLineListItem(text=recipe["name"], secondary_text=recipe["time"], on_release=partial(self.set_time, recipe.doc_id)))
 
     def set_time(self, id, item):
         Logger.debug("edit_recipe : %s => %s (%s) " % (item, id, self.ids))
         current_recipe = App.get_running_app().db.get(doc_id=id)
 
-        self.ids.duration.text = current_recipe['time']
+        self.ids.duration.text = current_recipe["time"]
