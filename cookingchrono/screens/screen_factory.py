@@ -3,7 +3,7 @@ from typing import Callable
 from kivy import Logger
 from kivy.app import App
 from kivymd.uix.screen import MDScreen
-from widgets.navigation.itemdrawer import ItemDrawer
+from widgets.navigation import ItemDrawer
 
 
 class ScreenFactory:

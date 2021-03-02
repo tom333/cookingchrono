@@ -4,7 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer, NavigationLayout
 from kivymd.uix.toolbar import MDToolbar
 from screens import AppScreenManager
-from widgets.navigation.contentnavigationdrawer import ContentNavigationDrawer
+from widgets.navigation import ContentNavigationDrawer
 
 
 class Skaffold(Screen):

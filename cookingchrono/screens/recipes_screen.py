@@ -5,7 +5,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
-from screens.screen_factory import ScreenFactory
+
+from screens import ScreenFactory
 
 Builder.load_string(
     """

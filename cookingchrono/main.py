@@ -4,7 +4,7 @@ import os
 from kivy import Logger
 from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
-from screens.screen_factory import ScreenFactory
+from screens import ScreenFactory
 from tinydb import TinyDB
 
 Logger.setLevel(logging.DEBUG)
