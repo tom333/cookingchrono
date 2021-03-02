@@ -11,3 +11,5 @@ htmlcov
 .buildozer
 bin
 .idea
+
+duplications-report.txt

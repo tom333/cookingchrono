@@ -22,7 +22,8 @@ tests: build-devbox # Execution des tests
 quality: build-devbox # Execution des outils de qualité
 	$(call execute_cmd) run black -l 200 --config pyproject.toml --target-version py38 /opt/${SOURCEDIR}
 	$(call execute_cmd) run isort ${SOURCEDIR}
-	$(call execute_cmd) run flake8 ${SOURCEDIR} --ignore=E501
+	$(call execute_cmd) run flake8 ${SOURCEDIR}
+	$(call execute_cmd) run pylint --disable=all --enable=duplicate-code --reports=y y cookingchrono | tee duplications-report.txt
 
 
 run:
