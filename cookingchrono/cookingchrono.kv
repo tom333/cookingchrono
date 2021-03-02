@@ -1,37 +1,5 @@
+#:import Skaffold widgets.skaffold
 
-#:import TimeWidget widgets.time_input
-#:import ContentNavigationDrawer widgets.navigation.contentnavigationdrawer
-#:import AppScreenManager screens.screen_manager
-
-#:import CountDownScreen screens.count_down_screen
-#:import OptionsScreen screens.options_screen
-#:import RecipesScreen screens.recipes_screen
-#:import AppScreenManager screens.screen_manager
-
-Screen:
-    MDToolbar:
-        id: toolbar
-        pos_hint: {"top": 1}
-        elevation: 10
-        title: "Chronomètre de cuisine"
-        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
-    NavigationLayout:
-        x: toolbar.height
-        AppScreenManager:
-            id: screen_manager
-
-            OptionsScreen:
-                id: options_screen
-            CountDownScreen:
-                id: count_down_screen
-            RecipesScreen:
-                id: recipes_screen
-
-        MDNavigationDrawer:
-            id: nav_drawer
-
-            ContentNavigationDrawer:
-                id: content_drawer
-                screen_manager: screen_manager
-                nav_drawer: nav_drawer
-
+Skaffold:
+    id: skaffold
+    title: "Chronomètre de cuisine"
