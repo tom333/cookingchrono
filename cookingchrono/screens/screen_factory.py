@@ -45,10 +45,6 @@ class ScreenFactory:
             An instance of the executor that is created.
         """
 
-        def navigation_menu_action(screen_name):
-            App.get_running_app().manager.current = screen_name
-            App.get_running_app().nav_drawer.set_state("close")
-
         for name in cls.registry:
             screen_class = cls.registry[name]
             screen = screen_class[0](**kwargs)
@@ -57,8 +53,7 @@ class ScreenFactory:
             App.get_running_app().manager.add_widget(screen)
             if screen_class[1]["menu"] is not None:
                 Logger.debug("ajout du menu %s " % screen_class[1]["menu"]["text"])
-                menu_item = ItemDrawer(icon=screen_class[1]["menu"]["icon"], text=screen_class[1]["menu"]["text"])
-                menu_item.on_press = partial(navigation_menu_action, screen.name)
+                menu_item = ItemDrawer(icon=screen_class[1]["menu"]["icon"], text=screen_class[1]["menu"]["text"], dest_screen_name=screen.name)
                 App.get_running_app().menu_list.add_widget(menu_item)
 
         if default_screen is not None:
