@@ -1,3 +1,6 @@
+from kivy import Logger
+from kivy.app import App
+from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
@@ -32,28 +35,6 @@ Builder.load_string(
 
         DrawerList:
             id: md_list
-
-            ItemDrawer:
-                icon: "metronome"
-                text: "Chronomètre"
-                on_press:
-                    root.nav_drawer.set_state("close")
-                    root.screen_manager.current = "MainScreen"
-
-            ItemDrawer:
-                icon: "settings"
-                text: "Options"
-                on_press:
-                    root.nav_drawer.set_state("close")
-                    root.screen_manager.current = "OptionsScreen"
-
-            ItemDrawer:
-                icon: "food"
-                text: "Recettes"
-                on_press:
-                    root.nav_drawer.set_state("close")
-                    root.screen_manager.current = "RecipesScreen"
-
 """
 )
 
@@ -61,3 +42,12 @@ Builder.load_string(
 class ContentNavigationDrawer(BoxLayout):
     screen_manager = ObjectProperty()
     nav_drawer = ObjectProperty()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Logger.debug(ContentNavigationDrawer)
+        Clock.schedule_once(lambda *args: self._register_menu_list())
+
+    def _register_menu_list(self):
+        Logger.debug("_register_menu_list")
+        App.get_running_app().menu_list = self.ids.md_list

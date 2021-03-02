@@ -6,11 +6,11 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
-
 from screens.screen_factory import ScreenFactory
 
 Builder.load_string(
     """
+#:import TimeWidget widgets.time_input
 <MainScreen>
     name: "MainScreen"
     orientation: 'vertical'
@@ -38,7 +38,7 @@ Builder.load_string(
 )
 
 
-@ScreenFactory.register('MainScreen')
+@ScreenFactory.register("MainScreen", default=True, menu={"icon": "metronome", 'text': "Chronomètre"})
 class MainScreen(MDScreen):
     def start_count_down(self):
         duration = self._convert_text_to_duration(self.ids.duration.text)
@@ -58,9 +58,9 @@ class MainScreen(MDScreen):
 
     def on_enter(self):
         Logger.debug(self.ids)
-        Clock.schedule_once(self._show_recpies_list)
+        Clock.schedule_once(self._show_recipes_list)
 
-    def _show_recpies_list(self, arg):
+    def _show_recipes_list(self, arg):
         Logger.debug(self.ids)
         self.ids.recipes_list.clear_widgets()
         for recipe in App.get_running_app().db.all():

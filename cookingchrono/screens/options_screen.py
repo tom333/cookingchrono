@@ -1,5 +1,6 @@
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
+from screens.screen_factory import ScreenFactory
 
 Builder.load_string(
     """
@@ -14,5 +15,6 @@ Builder.load_string(
 )
 
 
+@ScreenFactory.register("OptionsScreen", menu={"icon": "settings", "text": "Options"})
 class OptionsScreen(MDScreen):
     pass

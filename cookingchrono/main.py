@@ -13,6 +13,7 @@ Logger.setLevel(logging.DEBUG)
 class CookingChronoApp(MDApp):
     manager = ObjectProperty(None)
     db = ObjectProperty(None)
+    menu_list = ObjectProperty(None)
 
     def build(self):
         self.theme_cls.theme_style = "Dark"

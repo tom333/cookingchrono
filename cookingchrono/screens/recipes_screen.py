@@ -5,6 +5,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
+from screens.screen_factory import ScreenFactory
 
 Builder.load_string(
     """
@@ -42,6 +43,7 @@ Builder.load_string(
 )
 
 
+@ScreenFactory.register("RecipesScreen", menu={"icon": "food", "text": "Recettes"})
 class RecipesScreen(MDScreen):
     def __init__(self, **kw):
         super().__init__(**kw)

@@ -1,8 +1,11 @@
+from functools import partial
 from typing import Callable
 
 from kivy import Logger
 from kivy.app import App
 from kivymd.uix.screen import MDScreen
+
+from widgets.navigation.itemdrawer import ItemDrawer
 
 
 class ScreenFactory:
@@ -12,11 +15,12 @@ class ScreenFactory:
     """ Internal registry for available screens """
 
     @classmethod
-    def register(cls, name: str, icon: str = "", text: str = "", default: bool = False) -> Callable:
+    def register(cls, name: str, menu: {} = None, default: bool = False) -> Callable:
         """Class method to register MDScreen class to the internal registry.
         Args:
             name (str): The name of the screen.
             default (bool): Is default screen
+            menu (dict): Menu options if needed
         Returns:
             The Screen class itself.
         """
@@ -25,7 +29,7 @@ class ScreenFactory:
         def inner_wrapper(wrapped_class: MDScreen) -> Callable:
             if name in cls.registry:
                 Logger.warning("Screen %s already exists. Will replace it", name)
-            cls.registry[name] = (wrapped_class, {"default": default, "icon": icon, "text": text})
+            cls.registry[name] = (wrapped_class, {"default": default, "menu": menu})
             return wrapped_class
 
         return inner_wrapper
@@ -41,14 +45,23 @@ class ScreenFactory:
             An instance of the executor that is created.
         """
 
+        def navigation_menu_action(screen_name):
+            App.get_running_app().manager.current = screen_name
+            App.get_running_app().nav_drawer.set_state("close")
+
         for name in cls.registry:
             screen_class = cls.registry[name]
             screen = screen_class[0](**kwargs)
             if screen_class[1]["default"]:
                 default_screen = screen
-            #Logger.debug(App.get_running_app().menu_list)
             App.get_running_app().manager.add_widget(screen)
+            if screen_class[1]["menu"] is not None:
+                Logger.debug("ajout du menu %s " % screen_class[1]["menu"]["text"])
+                menu_item = ItemDrawer(icon=screen_class[1]["menu"]["icon"], text=screen_class[1]["menu"]["text"])
+                menu_item.on_press = partial(navigation_menu_action, screen.name)
+                App.get_running_app().menu_list.add_widget(menu_item)
 
         if default_screen is not None:
             Logger.debug("set default_screen : %s " % default_screen.name)
             App.get_running_app().manager.current = default_screen.name
+
