@@ -1,10 +1,8 @@
-from functools import partial
 from typing import Callable
 
 from kivy import Logger
 from kivy.app import App
 from kivymd.uix.screen import MDScreen
-
 from widgets.navigation.itemdrawer import ItemDrawer
 
 
@@ -34,7 +32,6 @@ class ScreenFactory:
 
         return inner_wrapper
 
-
     @classmethod
     def create_screens(cls, **kwargs) -> "MDScreen":
         """Factory command to create the executor.
@@ -59,4 +56,3 @@ class ScreenFactory:
         if default_screen is not None:
             Logger.debug("set default_screen : %s " % default_screen.name)
             App.get_running_app().manager.current = default_screen.name
-

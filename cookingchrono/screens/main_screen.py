@@ -38,7 +38,7 @@ Builder.load_string(
 )
 
 
-@ScreenFactory.register("MainScreen", default=True, menu={"icon": "metronome", 'text': "Chronomètre"})
+@ScreenFactory.register("MainScreen", default=True, menu={"icon": "metronome", "text": "Chronomètre"})
 class MainScreen(MDScreen):
     def start_count_down(self):
         duration = self._convert_text_to_duration(self.ids.duration.text)

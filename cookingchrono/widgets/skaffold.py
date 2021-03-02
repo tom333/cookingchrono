@@ -1,15 +1,13 @@
 from kivy import Logger
 from kivy.app import App
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.navigationdrawer import NavigationLayout, MDNavigationDrawer
+from kivymd.uix.navigationdrawer import MDNavigationDrawer, NavigationLayout
 from kivymd.uix.toolbar import MDToolbar
-
 from screens import AppScreenManager
 from widgets.navigation.contentnavigationdrawer import ContentNavigationDrawer
 
 
 class Skaffold(Screen):
-
     def __init__(self, **kw):
         super().__init__(**kw)
         Logger.debug("Skaffold init %s " % kw)
