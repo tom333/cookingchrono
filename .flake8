@@ -1,0 +1,8 @@
+[flake8]
+    max-line-length = 200
+    max-complexity = 18
+    docstring-convention = google
+    ignore =
+        # Exclude errors conflicting with black
+        W503, E501, E203
+    per-file-ignores = tests/*: D1

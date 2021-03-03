@@ -6,8 +6,10 @@ from kivy.core.audio import SoundLoader
 from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from kivymd.uix.screen import MDScreen
+from screens import ScreenFactory
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CountDownScreen>
     name: "CountDownScreen"
 
@@ -26,9 +28,11 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y": .25}
         on_press: root.pause_count_down()
 
-""")
+"""
+)
 
 
+@ScreenFactory.register("CountDownScreen")
 class CountDownScreen(MDScreen):
     duration = NumericProperty(0)
 
@@ -56,4 +60,3 @@ class CountDownScreen(MDScreen):
     def _convert_duration_to_mask(self):
         Logger.debug("timer: %s " % self.duration)
         return str(datetime.timedelta(seconds=self.duration))
-

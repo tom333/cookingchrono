@@ -17,6 +17,6 @@ class TimeInput(MDTextField):
         txt = self.text
         txt = txt.replace(":", "")
         txt += substring
-        txt = str(f'{int(txt):0>6}')
-        txt = ":".join((txt[0 + i:2 + i] for i in range(0, len(txt), 2)))
+        txt = str(f"{int(txt):0>6}")
+        txt = ":".join((txt[0 + i : 2 + i] for i in range(0, len(txt), 2)))
         return txt
