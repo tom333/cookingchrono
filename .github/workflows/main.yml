@@ -16,7 +16,11 @@ jobs:
       - uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
-
+      - name: Cache Buildozer global directory
+        uses: actions/cache@v2
+        with:
+          path: .buildozer_global
+          key: buildozer-global-${{ hashFiles('./buildozer.spec') }}
       - name: Build with Buildozer
         uses: tom333/buildozer-action@master
         id: buildozer
