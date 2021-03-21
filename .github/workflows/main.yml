@@ -22,25 +22,25 @@ jobs:
           path: .buildozer_global
           key: buildozer-global-${{ hashFiles('./buildozer.spec') }}
       - name: Build with Buildozer
-        uses: tom333/buildozer-action@master
+        uses: ArtemSBulgakov/buildozer-action@master
         id: buildozer
         with:
           workdir: .
           buildozer_version: stable
-#       - name: Bump version and push tag
-#         if: github.ref == 'refs/heads/main'
-#         id: tag_version
-#         uses: mathieudutour/github-tag-action@v5.3
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#       - name: Create a GitHub release
-#         if: github.ref == 'refs/heads/main'
-#         uses: softprops/action-gh-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         with:
-#           tag_name: ${{ steps.tag_version.outputs.new_tag }}
-#           name: Release ${{ steps.tag_version.outputs.new_tag }}
-#           body: ${{ steps.tag_version.outputs.changelog }}
-#           file: ${{ steps.buildozer.outputs.filename }}
+      - name: Bump version and push tag
+        if: github.ref == 'refs/heads/main'
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+          files: ${{ steps.buildozer.outputs.filename }}
 
