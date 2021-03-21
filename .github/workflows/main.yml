@@ -18,7 +18,7 @@ jobs:
         continue-on-error: true
 
       - name: Build with Buildozer
-        uses: tom333/buildozer-action@v1
+        uses: tom333/buildozer-action@main
         id: buildozer
         with:
           workdir: .
