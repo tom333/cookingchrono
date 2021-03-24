@@ -1,5 +1,6 @@
 from kivy.clock import Clock
 from kivy.lang import Builder
+from kivy.uix.settings import SettingsWithSpinner
 from kivymd.toast import toast
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.screen import MDScreen
@@ -9,13 +10,15 @@ Builder.load_string(
     """
 <OptionsScreen>
     name: "OptionsScreen"
-    MDLabel:
-        text: "Options"
-        pos_hint: {"center_x": .5, "center_y": .80}
-        valign: 'middle'
-        halign: 'center'
-"""
-)
+
+    FloatLayout:
+
+        MDRoundFlatIconButton:
+            text: "Open manager"
+            icon: "folder"
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            on_release: root.file_manager_open()
+""")
 
 
 @ScreenFactory.register("OptionsScreen", menu={"icon": "settings", "text": "Options"})
@@ -25,10 +28,10 @@ class OptionsScreen(MDScreen):
 
     def _init_widget(self, arg):
         self.manager_open = False
+        self.add_widget(SettingsWithSpinner())
         self.file_manager = MDFileManager(
             exit_manager=self.exit_manager,
-            select_path=self.select_path,
-            preview=False,
+            select_path=self.select_path
         )
 
     def file_manager_open(self):
