@@ -7,8 +7,8 @@ from kivy.uix.boxlayout import BoxLayout
 
 Builder.load_string(
     """
-#:import DrawerList widgets.navigation.drawerlist
-#:import ItemDrawer widgets.navigation.itemdrawer
+#:import DrawerList garden.widgets.navigation.drawerlist
+#:import ItemDrawer garden.widgets.navigation.itemdrawer
 
 <ContentNavigationDrawer>:
     orientation: "vertical"

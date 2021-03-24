@@ -1,12 +1,12 @@
 import datetime
 
+from garden.screens.screen_factory import ScreenFactory
 from kivy import Logger
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from kivymd.uix.screen import MDScreen
-from screens import ScreenFactory
 
 Builder.load_string(
     """

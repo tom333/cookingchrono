@@ -1,16 +1,17 @@
 import logging
 import os
 
+from garden.screens.screen_factory import ScreenFactory
 from kivy import Logger
 from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
-from screens import ScreenFactory
 from tinydb import TinyDB
 
 Logger.setLevel(logging.DEBUG)
+# TODO trouver un meilleur moyen d'importer automatiquement les écrans
+from screens import *
 
-
-json = '''
+json = """
 [
     {
         "type": "string",
@@ -27,7 +28,7 @@ json = '''
         "key": "font_size"
     }
 ]
-'''
+"""
 
 
 class CookingChronoApp(MDApp):
@@ -48,7 +49,7 @@ class CookingChronoApp(MDApp):
         """
         Set the default values for the configs sections.
         """
-        config.setdefaults('My Label', {'text': 'Hello', 'font_size': 20})
+        config.setdefaults("My Label", {"text": "Hello", "font_size": 20})
 
     def build_settings(self, settings):
         """
@@ -57,19 +58,18 @@ class CookingChronoApp(MDApp):
         # We use the string defined above for our JSON, but it could also be
         # loaded from a file as follows:
         #     settings.add_json_panel('My Label', self.config, 'settings.json')
-        settings.add_json_panel('My Label', self.config, data=json)
+        settings.add_json_panel("My Label", self.config, data=json)
 
     def on_config_change(self, config, section, key, value):
         """
         Respond to changes in the configuration.
         """
-        Logger.info("main.py: App.on_config_change: {0}, {1}, {2}, {3}".format(
-            config, section, key, value))
+        Logger.info("main.py: App.on_config_change: {0}, {1}, {2}, {3}".format(config, section, key, value))
 
         if section == "My Label":
             if key == "text":
                 self.root.ids.label.text = value
-            elif key == 'font_size':
+            elif key == "font_size":
                 self.root.ids.label.font_size = float(value)
 
 

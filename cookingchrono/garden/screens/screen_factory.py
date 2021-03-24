@@ -1,16 +1,16 @@
 from typing import Callable
 
+from garden.widgets.navigation.itemdrawer import ItemDrawer
 from kivy import Logger
 from kivy.app import App
 from kivymd.uix.screen import MDScreen
-from widgets.navigation import ItemDrawer
 
 
 class ScreenFactory:
     """ The factory class for creating screens"""
 
-    registry = {}
     """ Internal registry for available screens """
+    registry = {}
 
     @classmethod
     def register(cls, name: str, menu: {} = None, default: bool = False) -> Callable:
@@ -41,7 +41,7 @@ class ScreenFactory:
         Returns:
             An instance of the executor that is created.
         """
-
+        default_screen = None
         for name in cls.registry:
             screen_class = cls.registry[name]
             screen = screen_class[0](**kwargs)
