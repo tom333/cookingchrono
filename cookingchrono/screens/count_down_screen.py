@@ -1,9 +1,10 @@
 import datetime
 
+from kivy.app import App
+
 from garden.screens.screen_factory import ScreenFactory
 from kivy import Logger
 from kivy.clock import Clock
-from kivy.core.audio import SoundLoader
 from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from kivymd.uix.screen import MDScreen
@@ -35,13 +36,15 @@ Builder.load_string(
 @ScreenFactory.register("CountDownScreen")
 class CountDownScreen(MDScreen):
     duration = NumericProperty(0)
+    count_down = None
 
     def pause_count_down(self):
-        pass
+        App.get_running_app().sound_player.stop()
+        self.count_down.cancel()
 
     def start_timer(self):
         Logger.debug("start_timer")
-        Clock.schedule_interval(self.update_timer, 1)
+        self.count_down = Clock.schedule_interval(self.update_timer, 1)
 
     def update_timer(self, *args):
         self.duration -= 1
@@ -51,11 +54,7 @@ class CountDownScreen(MDScreen):
 
     def _play_sound(self):
         Logger.debug("play sound")
-        sound = SoundLoader.load("../assets/sound.mp3")
-        if sound:
-            print("Sound found at %s" % sound.source)
-            print("Sound is %.3f seconds" % sound.length)
-            sound.play()
+        App.get_running_app().sound_player.play()
 
     def _convert_duration_to_mask(self):
         Logger.debug("timer: %s " % self.duration)
