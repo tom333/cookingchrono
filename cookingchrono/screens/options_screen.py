@@ -1,4 +1,4 @@
-from kivy import Logger
+from kivy import Logger, platform
 from kivy.app import App
 
 from garden.screens.screen_factory import ScreenFactory
@@ -7,6 +7,8 @@ from kivy.lang import Builder
 from kivymd.toast import toast
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.screen import MDScreen
+
+from sound_player import SoundPlayer
 
 Builder.load_string(
     """
@@ -54,7 +56,12 @@ class OptionsScreen(MDScreen):
         self.file_manager.ext = ['.mp3']
 
     def file_manager_open(self):
-        self.file_manager.show("/")  # output manager to the screen
+        if platform == "android":
+            from android.storage import primary_external_storage_path
+            primary_ext_storage = primary_external_storage_path()
+            self.file_manager.show(primary_ext_storage)
+        else:
+            self.file_manager.show("/")
 
     def play_selected_file(self):
         sp = App.get_running_app().sound_player
@@ -65,13 +72,17 @@ class OptionsScreen(MDScreen):
 
     def select_path(self, path):
         self.exit_manager()
+        Logger.debug("selected path: %s" % path)
         App.get_running_app().config.set("notification", "file", path)
+        App.get_running_app().sound_player = SoundPlayer()
         sp = App.get_running_app().sound_player
         if not sp.is_playing:
             sp.play()
-        return App.get_running_app().config.write()
         self.ids.sound_file_name.text = path
         toast(path)
+        tmp = App.get_running_app().config.write()
+        Logger.debug("config writed : %s " %tmp)
+        return tmp
 
     def exit_manager(self, *args):
         self.file_manager.close()
