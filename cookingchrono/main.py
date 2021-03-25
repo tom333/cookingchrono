@@ -1,14 +1,12 @@
 import logging
 import os
-from kivy import platform
 
 from garden.screens.screen_factory import ScreenFactory
-from kivy import Logger
-from kivy.properties import ObjectProperty, ConfigParser
+from kivy import Logger, platform
+from kivy.properties import ConfigParser, ObjectProperty
 from kivymd.app import MDApp
-from tinydb import TinyDB
-
 from sound_player import SoundPlayer
+from tinydb import TinyDB
 
 Logger.setLevel(logging.DEBUG)
 # TODO trouver un meilleur moyen d'importer automatiquement les écrans
@@ -40,10 +38,9 @@ class CookingChronoApp(MDApp):
             else:
                 print("callback. Some permissions refused.")
 
-        from android.permissions import request_permissions, Permission
+        from android.permissions import Permission, request_permissions
 
-        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE],
-                            callback)
+        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE], callback)
 
     def build(self):
         if platform == "android":
@@ -59,10 +56,10 @@ class CookingChronoApp(MDApp):
         self.sound_player = SoundPlayer()
         ScreenFactory.create_screens()
 
-        if platform == 'android':
-            import android
+        if platform == "android":
             os.environ["KIVY_AUDIO"] = "ffpyplayer"
-            from android.permissions import request_permissions, Permission
+            from android.permissions import Permission, request_permissions
+
             request_permissions([Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE])
         Logger.info("################ app built ################")
 

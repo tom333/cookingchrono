@@ -1,9 +1,8 @@
 import datetime
 
-from kivy.app import App
-
 from garden.screens.screen_factory import ScreenFactory
 from kivy import Logger
+from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import NumericProperty

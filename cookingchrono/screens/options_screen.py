@@ -1,13 +1,11 @@
+from garden.screens.screen_factory import ScreenFactory
 from kivy import Logger, platform
 from kivy.app import App
-
-from garden.screens.screen_factory import ScreenFactory
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivymd.toast import toast
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.screen import MDScreen
-
 from sound_player import SoundPlayer
 
 Builder.load_string(
@@ -53,11 +51,12 @@ class OptionsScreen(MDScreen):
 
     def _init_widget(self, arg):
         self.file_manager = MDFileManager(exit_manager=self.exit_manager, select_path=self.select_path)
-        self.file_manager.ext = ['.mp3']
+        self.file_manager.ext = [".mp3"]
 
     def file_manager_open(self):
         if platform == "android":
             from android.storage import primary_external_storage_path
+
             primary_ext_storage = primary_external_storage_path()
             self.file_manager.show(primary_ext_storage)
         else:
@@ -81,7 +80,7 @@ class OptionsScreen(MDScreen):
         self.ids.sound_file_name.text = path
         toast(path)
         tmp = App.get_running_app().config.write()
-        Logger.debug("config writed : %s " %tmp)
+        Logger.debug("config writed : %s " % tmp)
         return tmp
 
     def exit_manager(self, *args):
@@ -93,15 +92,13 @@ class OptionsScreen(MDScreen):
 
     @property
     def volume(self):
-        return float(App.get_running_app().config.get("notification", "volume"))*100
+        return float(App.get_running_app().config.get("notification", "volume")) * 100
 
     def save_volume(self, instance, value):
         Logger.debug("%s => %s " % (str(instance), str(value)))
-        App.get_running_app().config.set("notification", "volume", str(value/100))
+        App.get_running_app().config.set("notification", "volume", str(value / 100))
         sp = App.get_running_app().sound_player
-        if not sp.is_playing :
+        if not sp.is_playing:
             sp.play()
-        sp.sound.volume = value/100
+        sp.sound.volume = value / 100
         return App.get_running_app().config.write()
-
-

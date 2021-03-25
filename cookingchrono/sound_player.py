@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.core.audio import SoundLoader
 
 
-class SoundPlayer():
+class SoundPlayer:
     def __init__(self):
         self.sound = SoundLoader.load(App.get_running_app().config.get("notification", "file"))
         if self.sound:
