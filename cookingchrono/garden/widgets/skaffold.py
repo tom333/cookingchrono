@@ -1,10 +1,10 @@
+from garden.screens.screen_manager import AppScreenManager
+from garden.widgets.navigation.contentnavigationdrawer import ContentNavigationDrawer
 from kivy import Logger
 from kivy.app import App
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer, NavigationLayout
 from kivymd.uix.toolbar import MDToolbar
-from screens import AppScreenManager
-from widgets.navigation import ContentNavigationDrawer
 
 
 class Skaffold(Screen):
