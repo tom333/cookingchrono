@@ -1,7 +1,9 @@
 import datetime
 
+from plyer import notification
+
 from garden.screens.screen_factory import ScreenFactory
-from kivy import Logger
+from kivy import Logger, platform
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
@@ -48,6 +50,10 @@ class CountDownScreen(MDScreen):
     def update_timer(self, *args):
         self.duration -= 1
         self.ids.timerlabel.text = self._convert_duration_to_mask()
+        if self.duration % 60 == 0 :
+            notification.notify(title='Chrono en cours', message='Il reste %s ' % self.ids.timerlabel.text,
+                                timeout=10 )
+
         if self.duration == 0:
             self._play_sound()
 

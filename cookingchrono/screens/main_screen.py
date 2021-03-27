@@ -1,7 +1,9 @@
 from functools import partial
 
+from plyer import notification
+
 from garden.screens.screen_factory import ScreenFactory
-from kivy import Logger
+from kivy import Logger, platform
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
@@ -46,6 +48,7 @@ class MainScreen(MDScreen):
         self.manager.current = "CountDownScreen"
         self.manager.current_screen.duration = duration
         self.manager.current_screen.start_timer()
+        notification.notify(title='Chrono démarré', message='Il reste %s '% self.ids.duration.text, app_name='"Chronomètre"', app_icon='', timeout=10, ticker='ticker', toast=False)
 
     def _convert_text_to_duration(self, txt):
         """
