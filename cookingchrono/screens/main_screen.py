@@ -7,33 +7,33 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.screen import MDScreen
+from plyer import notification
 
 Builder.load_string(
     """
 #:import TimeWidget widgets.time_input
 <MainScreen>
     name: "MainScreen"
-    orientation: 'vertical'
-    MDLabel:
-        text: "Chronomètre"
-        pos_hint: {"center_x": .5, "center_y": .80}
-        valign: 'middle'
-        halign: 'center'
-    MDList:
-        pos_hint: {"center_x": .5, "center_y": .70}
-        id: recipes_list
-    TimeInput:
-        id: duration
-        text: "00:00:00"
-        max_text_length: 8
-        pos_hint: {"center_x": .5, "center_y": .25}
-        valign: 'middle'
-        halign: 'center'
-    MDIconButton:
-        icon: "play-circle-outline"
-        pos_hint: {"center_x": .5, "center_y": .10}
-        on_press: root.start_count_down()
-
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: "Chronomètre"
+            valign: 'middle'
+            halign: 'center'
+        MDList:
+            id: recipes_list
+        TimeInput:
+            id: duration
+            text: "00:00:00"
+            max_text_length: 8
+            valign: 'middle'
+            halign: 'center'
+            font_size: 150
+        MDIconButton:
+            icon: "play-circle-outline"
+            on_press: root.start_count_down()
+            user_font_size: "64sp"
+            pos_hint: {"center_x": .5, "center_y": .80}
 """
 )
 
@@ -46,6 +46,7 @@ class MainScreen(MDScreen):
         self.manager.current = "CountDownScreen"
         self.manager.current_screen.duration = duration
         self.manager.current_screen.start_timer()
+        notification.notify(title="Chrono démarré", message="Il reste %s " % self.ids.duration.text, app_name='Chronomètre', app_icon="", timeout=10, toast=False)
 
     def _convert_text_to_duration(self, txt):
         """
@@ -70,5 +71,4 @@ class MainScreen(MDScreen):
     def set_time(self, id, item):
         Logger.debug("edit_recipe : %s => %s (%s) " % (item, id, self.ids))
         current_recipe = App.get_running_app().db.get(doc_id=id)
-
         self.ids.duration.text = current_recipe["time"]

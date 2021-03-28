@@ -130,7 +130,7 @@ toml = ["toml"]
 name = "cython"
 version = "0.29.19"
 description = "The Cython compiler for writing C extensions for the Python language."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -327,6 +327,18 @@ path = "*"
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "pytest-black (>=0.3.7)", "pytest-mypy"]
+
+[[package]]
+name = "jnius"
+version = "1.1.0"
+description = "Dynamic access to Java classes from Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+cython = "*"
+six = ">=1.7.0"
 
 [[package]]
 name = "kivy"
@@ -535,6 +547,20 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 dev = ["pre-commit", "tox"]
 
 [[package]]
+name = "plyer"
+version = "2.0.0"
+description = "Platform-independent wrapper for platform-dependent APIs"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+android = ["pyjnius"]
+dev = ["mock", "flake8"]
+ios = ["pyobjus"]
+macosx = ["pyobjus"]
+
+[[package]]
 name = "pre-commit"
 version = "2.11.1"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
@@ -717,7 +743,7 @@ python-versions = "*"
 name = "six"
 version = "1.15.0"
 description = "Python 2 and 3 compatibility utilities"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -831,7 +857,7 @@ tests = ["pytest", "pytest-cov", "codecov", "scikit-build", "cmake", "ninja", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3690a602bc77cda3b239a5a6c93a767bf00572021863950e323328f107cfa7e6"
+content-hash = "20d6849aabc60bfba69a97c6ed26afbf64d6616976cc4878db1a08ec8d19e457"
 
 [metadata.files]
 appdirs = [
@@ -1038,6 +1064,9 @@ isort = [
     {file = "jaraco.windows-5.5.0-py3-none-any.whl", hash = "sha256:4c3c305d74c0e95df56912502061c89b78e075dd839634b1008f9bfa188ae53f"},
     {file = "jaraco.windows-5.5.0.tar.gz", hash = "sha256:8e17b104e76abb491905b5dbd4a7d55e53766ac92af3b562f6f457f845752fb4"},
 ]
+jnius = [
+    {file = "jnius-1.1.0.tar.gz", hash = "sha256:5ab9e2f64196121c168d85983c5bab3cecbb782113213570bf2840134157318c"},
+]
 kivy = [
     {file = "Kivy-2.0.0-cp36-cp36m-macosx_10_14_x86_64.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:256846daa1a35b54b00426f7468423a962c3d8f909d7e8c713acab55c3281dee"},
     {file = "Kivy-2.0.0-cp36-cp36m-manylinux2010_x86_64.whl", hash = "sha256:bfb6b801599eac5aa9388308119d42a637a495945c79e2e2a3f6ef60c563c770"},
@@ -1197,6 +1226,10 @@ pillow = [
 pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
+]
+plyer = [
+    {file = "plyer-2.0.0-py2.py3-none-any.whl", hash = "sha256:d62a1e68622042e6b9367ba429844e989ea7b13035fd1befe66f385aaaba6de1"},
+    {file = "plyer-2.0.0.tar.gz", hash = "sha256:8de38b17bc438df36eedeacd546cf05303ab871855af0669fc4e8df51f2adf94"},
 ]
 pre-commit = [
     {file = "pre_commit-2.11.1-py2.py3-none-any.whl", hash = "sha256:94c82f1bf5899d56edb1d926732f4e75a7df29a0c8c092559c77420c9d62428b"},
