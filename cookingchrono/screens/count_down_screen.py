@@ -14,25 +14,34 @@ Builder.load_string(
     """
 <CountDownScreen>
     name: "CountDownScreen"
-
-    MDLabel:
-        text: "Chronomètre"
-        pos_hint: {"center_x": .5, "center_y": .80}
-        valign: 'middle'
-        halign: 'center'
-    MDLabel:
-        id: timerlabel
-        pos_hint: {"center_x": .5, "center_y": .5}
-        valign: 'middle'
-        halign: 'center'
-        font_size: 150
-        theme_text_color: "Primary"
-    MDIconButton:
-        id: pausebutton
-        icon : "pause-circle-outline"
-        pos_hint: {"center_x": .5, "center_y": .10}
-        user_font_size: "64sp"
-        on_press: root.pause_count_down()
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: "Chronomètre"
+            pos_hint: {"center_x": .5, "center_y": .80}
+            valign: 'middle'
+            halign: 'center'
+        MDLabel:
+            id: timerlabel
+            pos_hint: {"center_x": .5, "center_y": .5}
+            valign: 'middle'
+            halign: 'center'
+            font_size: 150
+            theme_text_color: "Primary"
+        MDBoxLayout:
+            orientation: 'horizontal'
+            MDIconButton:
+                id: reinitbutton
+                icon : "reload"
+                size_hint: (.5,1)
+                user_font_size: "64sp"
+                on_press: root.reinit_count_down()
+            MDIconButton:
+                id: pausebutton
+                icon : "pause-circle-outline"
+                size_hint: (.5,1)
+                user_font_size: "64sp"
+                on_press: root.pause_count_down()
 
 """
 )
@@ -43,6 +52,7 @@ class CountDownScreen(MDScreen):
     duration = NumericProperty(0)
     count_down = None
     running = True
+
     def pause_count_down(self):
         Logger.debug("pause_count_down %s " %  self.count_down)
         if self.running:
@@ -52,6 +62,15 @@ class CountDownScreen(MDScreen):
             self.ids.pausebutton.icon = "play-circle-outline"
         else:
             self.start_timer()
+
+    def reinit_count_down(self):
+        self.running = False
+        self.count_down.cancel()
+        self.count_down = None
+        self.duration = 0
+        self.manager.current = "MainScreen"
+        self.manager.current_screen.duration = 0
+
 
     def start_timer(self):
         Logger.debug("start_timer")
