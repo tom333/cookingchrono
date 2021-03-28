@@ -1,14 +1,13 @@
 import datetime
 
-from plyer import notification
-
 from garden.screens.screen_factory import ScreenFactory
-from kivy import Logger, platform
+from kivy import Logger
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from kivymd.uix.screen import MDScreen
+from plyer import notification
 
 Builder.load_string(
     """
@@ -54,7 +53,7 @@ class CountDownScreen(MDScreen):
     running = True
 
     def pause_count_down(self):
-        Logger.debug("pause_count_down %s " %  self.count_down)
+        Logger.debug("pause_count_down %s " % self.count_down)
         if self.running:
             App.get_running_app().sound_player.stop()
             self.count_down.cancel()
@@ -71,7 +70,6 @@ class CountDownScreen(MDScreen):
         self.manager.current = "MainScreen"
         self.manager.current_screen.duration = 0
 
-
     def start_timer(self):
         Logger.debug("start_timer")
         self.running = True
@@ -82,9 +80,8 @@ class CountDownScreen(MDScreen):
         self.duration -= 1
         self.ids.timerlabel.text = self._convert_duration_to_mask()
         self.ids.pausebutton.icon = "pause-circle-outline"
-        if self.duration % 60 == 0 :
-            notification.notify(title='Chrono en cours', message='Il reste %s ' % self.ids.timerlabel.text,
-                                timeout=10 )
+        if self.duration % 60 == 0:
+            notification.notify(title="Chrono en cours", message="Il reste %s " % self.ids.timerlabel.text, timeout=10)
 
         if self.duration == 0:
             self._play_sound()

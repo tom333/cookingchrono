@@ -1,10 +1,9 @@
 import logging
 import os
 
-from kivy.core.window import Window
-
 from garden.screens.screen_factory import ScreenFactory
 from kivy import Logger, platform
+from kivy.core.window import Window
 from kivy.properties import ConfigParser, ObjectProperty
 from kivymd.app import MDApp
 from sound_player import SoundPlayer
@@ -58,7 +57,7 @@ class CookingChronoApp(MDApp):
         self.sound_player = SoundPlayer()
         ScreenFactory.create_screens()
 
-        Window.softinput_mode = 'below_target'
+        Window.softinput_mode = "below_target"
 
         if platform == "android":
             os.environ["KIVY_AUDIO"] = "ffpyplayer"

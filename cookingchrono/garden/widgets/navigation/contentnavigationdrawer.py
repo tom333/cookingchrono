@@ -22,7 +22,7 @@ Builder.load_string(
 
         MDIconButton:
             id: home
-            ico: "home"
+            icon: "food-turkey"
             user_font_size: "56sp"
 
     MDLabel:
