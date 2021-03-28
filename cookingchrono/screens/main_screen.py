@@ -31,10 +31,12 @@ Builder.load_string(
         pos_hint: {"center_x": .5, "center_y": .25}
         valign: 'middle'
         halign: 'center'
+        font_size: 150
     MDIconButton:
         icon: "play-circle-outline"
         pos_hint: {"center_x": .5, "center_y": .10}
         on_press: root.start_count_down()
+        user_font_size: "64sp"
 
 """
 )

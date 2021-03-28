@@ -17,7 +17,7 @@ class SoundPlayer:
             self.sound.play()
 
     def stop(self):
-        if self.sound:
+        if self.sound and self.is_playing == True:
             self.is_playing = False
             print("Sound found at %s" % self.sound.source)
             print("Sound is %.3f seconds" % self.sound.length)
