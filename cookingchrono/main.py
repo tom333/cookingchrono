@@ -11,6 +11,7 @@ from tinydb import TinyDB
 
 Logger.setLevel(logging.DEBUG)
 # TODO trouver un meilleur moyen d'importer automatiquement les écrans
+# https://stackoverflow.com/questions/5189232/how-to-auto-register-a-class-when-its-defined
 from screens import *
 
 
@@ -63,7 +64,8 @@ class CookingChronoApp(MDApp):
             os.environ["KIVY_AUDIO"] = "ffpyplayer"
             from android.permissions import Permission, request_permissions
 
-            request_permissions([Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE])
+            request_permissions([Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE, Permission.INTERNET])
+
         Logger.info("################ app built ################")
 
         return
