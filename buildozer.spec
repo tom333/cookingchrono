@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,plyer,kivy==2.0.0,kivymd,tinydb,Pillow,libshine,libx264,ffpyplayer,ffpyplayer_codecs,plyer,android,pyjnius
+requirements = python3,plyer,kivy==2.0.0,kivymd,tinydb,Pillow,libshine,libx264,ffpyplayer,ffpyplayer_codecs,plyer,android,pyjnius,oscpy
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -55,7 +55,8 @@ requirements = python3,plyer,kivy==2.0.0,kivymd,tinydb,Pillow,libshine,libx264,f
 orientation = portrait
 
 # (list) List of service to declare
-#services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
+services = cookingchrono:./service.py
+#,NAME2:ENTRYPOINT2_TO_PY
 
 #
 # OSX Specific
@@ -85,7 +86,7 @@ fullscreen = 0
 #android.presplash_color = #FFFFFF
 
 # (list) Permissions
-android.permissions = READ_EXTERNAL_STORAGE
+android.permissions = READ_EXTERNAL_STORAGE, INTERNET
 
 # (int) Target Android API, should be as high as possible.
 #android.api = 27
